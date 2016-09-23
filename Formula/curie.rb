@@ -1,6 +1,6 @@
 require 'formula'
 
-class Sqitch < Formula
+class Curie < Formula
   class Perl510 < Requirement
     fatal true
 
@@ -9,21 +9,21 @@ class Sqitch < Formula
     end
 
     def message
-      "Sqitch requires Perl 5.10.0 or greater."
+      "Curie requires Perl 5.10.0 or greater."
     end
   end
 
-  homepage   'http://sqitch.org/'
-  version    '0.9995'
-  url        "http://cpan.cpantesters.org/authors/id/D/DW/DWHEELER/App-Sqitch-#{stable.version}.tar.gz"
-  sha256     'c29b4610ce43bd43ecfa39188f4cbb00b38c390136fcdd9984142efd99eba292'
-  head       'https://github.com/theory/sqitch.git'
+  homepage   'https://project-renard.github.io/'
+  desc "Document reader component from Project Renard"
+  version    '0.001'
+  url        "http://cpan.cpantesters.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
+  sha256     '7c86ad5852bf84c00135b7c5437472d4e3b365fcc0415bc7dc6cb1c46367f04a'
+  head       'https://github.com/project-renard/curie.git'
   depends_on Perl510
-  depends_on 'sqitch_dependencies'
+  depends_on 'curie_dependencies'
 
   if build.head? || build.devel?
-    depends_on 'sqitch_maint_depends'
-    depends_on 'gettext'
+    depends_on 'curie_maint_depends'
   end
 
   def install
@@ -39,25 +39,25 @@ class Sqitch < Formula
         system "dzil #{cmd} | cpanm --local-lib '#{prefix}'"
       end
 
-      # Build it in sqitch-HEAD and then cd into it.
-      system "dzil build --in sqitch-HEAD"
-      Dir.chdir 'sqitch-HEAD'
+      # Build it in curie-HEAD and then cd into it.
+      system "dzil build --in curie-HEAD"
+      Dir.chdir 'curie-HEAD'
 
       # Remove perllocal.pod, simce it just gets in the way of other modules.
       rm "#{prefix}/lib/perl5/#{arch}/perllocal.pod", :force => true
     end
 
-    system "perl Build.PL --install_base '#{prefix}' --installed_etcdir '#{HOMEBREW_PREFIX}/etc/sqitch'"
-    system "./Build"
+    system "perl Makefile.PL PREFIX='#{prefix}'"
+    system "make"
 
-    # Add the Homebrew Perl lib dirs to sqitch.
-    inreplace 'blib/script/sqitch' do |s|
+    # Add the Homebrew Perl lib dirs to curie.
+    inreplace 'blib/script/curie' do |s|
       s.sub! /use /, "use lib '#{plib}', '#{plib}/#{arch}';\nuse "
       if `perl -E 'print $]'`.to_f == 5.01000
         s.sub!(/ -CAS/, '')
       end
     end
 
-    system "./Build install"
+    system "make install"
   end
 end

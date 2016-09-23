@@ -1,13 +1,13 @@
 require 'formula'
 
-class SqitchMaintDepends < Formula
-  version    '0.9995'
-  url        "http://api.metacpan.org/source/DWHEELER/App-Sqitch-#{stable.version}/META.json", :using => :nounzip
-  sha256     '167857eb22f7893a02ac3886dfac67e30aa8b83e03a67bb217810de2abebe02e'
-  homepage   'http://sqitch.org/'
+class CurieMaintDepends < Formula
+  version    '0.001'
+  url        "http://api.metacpan.org/source/ZMUGHAL/Renard-Curie-#{stable.version}/META.json", :using => :nounzip
+  sha256     '6e6acb2ac2acb5fb44876809ae9f49c21123e8aa878ba237e849bf892fb3a03e'
+  homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus'
-  conflicts_with 'sqitch_dependencies',
-    :because => "sqitch_maint_depends and sqitch_dependencies install the same plugins."
+  conflicts_with 'curie_dependencies',
+    :because => "curie_maint_depends and curie_dependencies install the same plugins."
 
   def install
     arch  = %x(perl -MConfig -E 'print $Config{archname}')
@@ -26,6 +26,7 @@ class SqitchMaintDepends < Formula
       end
     end
 
+    # TODO using dzil authordeps here
     # Also need Dist::Zilla and a bunch of plugins.
     system "cpanm --local-lib '#{prefix}' --notest Dist::Zilla"
     %w{AutoPrereqs CheckExtraTests ConfirmRelease ExecDir GatherDir License LocaleTextDomain Manifest ManifestSkip MetaJSON MetaNoIndex MetaResources MetaYAML ModuleBuild Prereqs PruneCruft Readme ShareDir TestRelease UploadToCPAN VersionFromModule}.each do |plugin|
