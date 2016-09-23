@@ -1,13 +1,24 @@
 require 'formula'
 
-class SqitchDependencies < Formula
-  version    '0.9995'
-  url        "http://api.metacpan.org/source/DWHEELER/App-Sqitch-#{stable.version}/META.json", :using => :nounzip
-  sha256     '167857eb22f7893a02ac3886dfac67e30aa8b83e03a67bb217810de2abebe02e'
-  homepage   'http://sqitch.org/'
+class CurieDependencies < Formula
+  version    '0.001'
+  url        "http://api.metacpan.org/source/ZMUGHAL/Renard-Curie-#{stable.version}/META.json", :using => :nounzip
+  sha256     '6e6acb2ac2acb5fb44876809ae9f49c21123e8aa878ba237e849bf892fb3a03e'
+  homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus'
-  conflicts_with 'sqitch_maint_depends',
-    :because => "sqitch_dependencies and sqitch_maint_depends install the same plugins."
+  depends_on 'gtk+3'
+  depends_on 'gtk-doc'
+  depends_on 'clutter-gtk'
+  depends_on 'gtk-engines'
+  depends_on 'gtk-mac-integration'
+  depends_on 'gtk-murrine-engine'
+  depends_on 'gtkextra'
+  depends_on 'gtkglext'
+  depends_on 'gtksourceview3'
+  depends_on 'gtkspell3'
+  depends_on 'webkitgtk'
+  conflicts_with 'curie_maint_depends',
+    :because => "curie_dependencies and curie_maint_depends install the same plugins."
 
   def install
     arch  = %x(perl -MConfig -E 'print $Config{archname}')
@@ -16,6 +27,7 @@ class SqitchDependencies < Formula
     ENV.remove_from_cflags(/-march=\w+/)
     ENV.remove_from_cflags(/-msse\d?/)
 
+    system "cpanm --local-lib '#{prefix}' --notest Moose Function::Parameters"
     open 'META.json' do |f|
       Utils::JSON.load(f.read)['prereqs'].each do |mode, prereqs|
         next if ['develop', 'test'].include? mode
