@@ -6,6 +6,7 @@ class CurieDependencies < Formula
   sha256     '6e6acb2ac2acb5fb44876809ae9f49c21123e8aa878ba237e849bf892fb3a03e'
   homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus' => :build
+  depends_on :x11 # needed for Alien::MuPDF (builds mupdf-x11 on Mac OS X)
   depends_on 'gtk+3'
   #depends_on 'gtk-doc'
   depends_on 'clutter-gtk'
