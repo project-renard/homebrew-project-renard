@@ -12,6 +12,7 @@ First, use this command to set up the Project Renard Homebrew tap:
 
 Now you can install the Curie application:
 
+    brew cask install xquartz
     brew install curie
 
 Interested in hacking on Curie? Of course you should
