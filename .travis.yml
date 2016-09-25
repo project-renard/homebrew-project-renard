@@ -2,6 +2,7 @@ os: osx
 osx_image: xcode8
 before_install:
   - brew update
+  - brew cask install xquartz
 install:
   - mkdir -p $(brew --repo)/Library/Taps/travis
   - ln -s $PWD $(brew --repo)/Library/Taps/travis/homebrew-testtap
