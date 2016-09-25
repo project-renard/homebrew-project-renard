@@ -6,6 +6,10 @@ Project Renard Homebrew Tap
 This [Homebrew](http://mxcl.github.com/homebrew/) tap provides formulas for
 [Project Renard](https://project-renard.github.io/).
 
+NOTE: Please leave an issue if you have any issues with this installation.
+I, (Zaki Mughal), do not have access to a fresh Mac OS X machine to test this
+myself from scratch.
+
 First, use this command to set up the Project Renard Homebrew tap:
 
     brew tap project-renard/project-renard
