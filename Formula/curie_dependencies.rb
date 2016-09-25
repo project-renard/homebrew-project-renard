@@ -7,16 +7,16 @@ class CurieDependencies < Formula
   homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus' => :build
   depends_on 'gtk+3' => ['without-x11']
-  depends_on 'gtk-doc'
+  #depends_on 'gtk-doc'
   depends_on 'clutter-gtk'
   depends_on 'gtk-engines'
   depends_on 'gtk-mac-integration'
   depends_on 'gtk-murrine-engine'
-  depends_on 'gtkextra'
-  depends_on 'gtkglext'
-  depends_on 'gtksourceview3'
-  depends_on 'gtkspell3'
-  depends_on 'webkitgtk'
+  #depends_on 'gtkextra'
+  #depends_on 'gtkglext' # this requires pangox-compat which requires xquartz cask
+  #depends_on 'gtksourceview3'
+  #depends_on 'gtkspell3'
+  #depends_on 'webkitgtk'
   conflicts_with 'curie_maint_depends',
     :because => "curie_dependencies and curie_maint_depends install the same plugins."
 
