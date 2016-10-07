@@ -60,4 +60,13 @@ class Curie < Formula
 
     system "make install"
   end
+
+  test do
+    expected_version = version.to_s
+      if build.head? || build.devel?
+        expected_version = 'dev'
+      end
+    got_version = shell_output("#{bin}/curie --version")
+    assert_match expected_version, got_version
+  end
 end

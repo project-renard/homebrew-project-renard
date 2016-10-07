@@ -8,8 +8,10 @@ install:
   - ln -s $PWD $(brew --repo)/Library/Taps/travis/homebrew-testtap
   - brew tap --repair
 env:
-  - PACKAGE=curie BREW_AUDIT=0 BREW_TEST=0 PERL_CPANM_OPT=""
+  - PACKAGE=curie BREW_AUDIT=0 BREW_TEST=0 PERL_CPANM_OPT="" BREW_INSTALL_OPT=""
+  - PACKAGE=curie BREW_AUDIT=0 BREW_TEST=1 PERL_CPANM_OPT="" BREW_INSTALL_OPT="--devel"
+  - PACKAGE=curie BREW_AUDIT=0 BREW_TEST=1 PERL_CPANM_OPT="" BREW_INSTALL_OPT="--HEAD"
 script:
   - if [ "$BREW_AUDIT" = 1 ]; then brew audit $PACKAGE; fi
-  - brew install -v $PACKAGE
+  - brew install -v $BREW_INSTALL_OPT $PACKAGE
   - if [ "$BREW_TEST" = 1 ]; then brew test $PACKAGE; fi
