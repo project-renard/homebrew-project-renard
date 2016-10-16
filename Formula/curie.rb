@@ -16,27 +16,35 @@ class Curie < Formula
   homepage   'https://project-renard.github.io/'
   desc "Document reader component from Project Renard"
   version    '0.001'
-  url        "http://cpan.cpantesters.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
+  #url        "http://cpan.cpantesters.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
+  url        "https://cpan.metacpan.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
   sha256     '7c86ad5852bf84c00135b7c5437472d4e3b365fcc0415bc7dc6cb1c46367f04a'
   head       'https://github.com/project-renard/curie.git'
   depends_on Perl510
   depends_on 'curie_dependencies'
 
-  if build.head? || build.devel?
-    depends_on 'curie_maint_depends'
-  end
-
   def install
     arch  = %x(perl -MConfig -E 'print $Config{archname}')
     plib  = "#{HOMEBREW_PREFIX}/lib/perl5"
     ENV['PERL5LIB'] = "#{plib}:#{plib}/#{arch}:#{lib}:#{lib}/#{arch}"
+    ENV['PATH'] = "#{ENV['PATH']}:#{HOMEBREW_PREFIX}/bin"
     ENV.remove_from_cflags(/-march=\w+/)
     ENV.remove_from_cflags(/-msse\d?/)
+    if build.head? || build.devel?
+      plib = "#{prefix}/lib/perl5"
+      ENV['PERL5LIB'] = "#{ENV['PERL5LIB']}:#{plib}:#{plib}/#{arch}:#{lib}:#{lib}/#{arch}"
+      ENV['PATH'] = "#{ENV['PATH']}:#{prefix}/bin"
+      system 'echo Append Formula/curie.rb'
+      system 'echo PERL5LIB=$PERL5LIB'
+    end
 
+    system "cpanm --local-lib '#{prefix}' --notest Moose Function::Parameters"
+    system "cpanm --local-lib '#{prefix}' --notest --installdeps ."
     if build.head? || build.devel?
       # Install any missing dependencies.
-      %w{authordeps listdeps}.each do |cmd|
-        system "dzil #{cmd} | cpanm --local-lib '#{prefix}'"
+      system "cpanm --local-lib '#{prefix}' --notest Dist::Zilla"
+      %w{authordeps}.each do |cmd|
+        system "dzil #{cmd} | grep -v '^Possibly harmless' | cpanm --local-lib '#{prefix}' --notest"
       end
 
       # Build it in curie-HEAD and then cd into it.
@@ -47,7 +55,8 @@ class Curie < Formula
       rm "#{prefix}/lib/perl5/#{arch}/perllocal.pod", :force => true
     end
 
-    system "perl Makefile.PL PREFIX='#{prefix}'"
+    system "cpanm --local-lib '#{prefix}' --notest --installdeps ."
+    system "perl Makefile.PL INSTALL_BASE='#{prefix}'"
     system "make"
 
     # Add the Homebrew Perl lib dirs to curie.
@@ -62,10 +71,7 @@ class Curie < Formula
   end
 
   test do
-    expected_version = version.to_s
-      if build.head? || build.devel?
-        expected_version = 'dev'
-      end
+    expected_version = stable.version.to_s
     got_version = shell_output("#{bin}/curie --version")
     assert_match expected_version, got_version
   end
