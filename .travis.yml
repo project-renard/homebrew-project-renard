@@ -13,5 +13,6 @@ env:
   - PACKAGE=curie BREW_AUDIT=0 BREW_TEST=1 PERL_CPANM_OPT="" BREW_INSTALL_OPT="--HEAD"
 script:
   - if [ "$BREW_AUDIT" = 1 ]; then brew audit $PACKAGE; fi
-  - brew install -v $BREW_INSTALL_OPT $PACKAGE
+  - brew install -v $BREW_INSTALL_OPT $PACKAGE || true
+  - which curie
   - if [ "$BREW_TEST" = 1 ]; then brew test $PACKAGE; fi
