@@ -8,6 +8,7 @@ class CurieDependencies < Formula
   depends_on 'cpanminus' => :build
   depends_on :x11 # needed for Alien::MuPDF (builds mupdf-x11 on Mac OS X)
   depends_on 'gtk+3'
+  depends_on 'gnome-icon-theme'
   #depends_on 'gtk-doc'
   depends_on 'clutter-gtk'
   depends_on 'gtk3-mac-integration'
