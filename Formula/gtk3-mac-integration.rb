@@ -1,3 +1,4 @@
+# See original homebrew-core formula <https://github.com/Homebrew/homebrew-core/blob/master/Formula/gtk-mac-integration.rb>
 class Gtk3MacIntegration < Formula
   desc "API to integrate GTK macOS applications with the Mac desktop"
   homepage "https://wiki.gnome.org/Projects/GTK+/OSX/Integration"
