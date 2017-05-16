@@ -15,7 +15,7 @@ class Curie < Formula
 
   homepage   'https://project-renard.github.io/'
   desc "Document reader component from Project Renard"
-  version    '0.001'
+  version    '0.002'
   #url        "http://cpan.cpantesters.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
   url        "https://cpan.metacpan.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
   sha256     '7c86ad5852bf84c00135b7c5437472d4e3b365fcc0415bc7dc6cb1c46367f04a'
