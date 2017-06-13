@@ -3,7 +3,7 @@ require 'formula'
 class CurieDependencies < Formula
   version    '0.002'
   url        "https://fastapi.metacpan.org/v1/source/ZMUGHAL/Renard-Curie-#{stable.version}/META.json", :using => :nounzip
-  sha256     '6e6acb2ac2acb5fb44876809ae9f49c21123e8aa878ba237e849bf892fb3a03e'
+  sha256     '1d9eafa402230afbcb1a9322d8f4275407271c57614fa0ef44c0c8f57a8cc855'
   homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus' => :build
   depends_on :x11 # needed for Alien::MuPDF (builds mupdf-x11 on Mac OS X)

@@ -18,7 +18,7 @@ class Curie < Formula
   version    '0.002'
   #url        "http://cpan.cpantesters.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
   url        "https://cpan.metacpan.org/authors/id/Z/ZM/ZMUGHAL/Renard-Curie-#{stable.version}.tar.gz"
-  sha256     '7c86ad5852bf84c00135b7c5437472d4e3b365fcc0415bc7dc6cb1c46367f04a'
+  sha256     'c2a7673dfd34a335ed4ea61d7105c9b96163ce6b98b10ca5a764d5fd6598a42c'
   head       'https://github.com/project-renard/curie.git'
   depends_on Perl510
   depends_on 'curie_dependencies'
