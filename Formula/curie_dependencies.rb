@@ -2,7 +2,7 @@ require 'formula'
 
 class CurieDependencies < Formula
   version    '0.002'
-  url        "http://api.metacpan.org/source/ZMUGHAL/Renard-Curie-#{stable.version}/META.json", :using => :nounzip
+  url        "https://fastapi.metacpan.org/v1/source/ZMUGHAL/Renard-Curie-#{stable.version}/META.json", :using => :nounzip
   sha256     '6e6acb2ac2acb5fb44876809ae9f49c21123e8aa878ba237e849bf892fb3a03e'
   homepage   'https://project-renard.github.io/'
   depends_on 'cpanminus' => :build
